@@ -1,7 +1,19 @@
-import classifier from "../lib/classifier.js";   // move your classifyCard code into /lib
-
 export default function handler(req, res) {
-  if (req.method !== "POST") return res.status(405).end();
-  const result = classifier(req.body || {});
-  return res.json(result);
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "POST only" });
+  }
+
+  const { memberId = "", group = "", bin = "", pcn = "" } = req.body || {};
+
+  // --- very small demo rule ---------------------------------
+  // Replace this block with your full deterministic + heuristic logic
+  let plan = "Commercial";
+  let confidence = 0.8;
+  if (bin === "004336" && pcn.toUpperCase() === "MEDDADV") {
+    plan = "Medicare Part D / MA‑PD";
+    confidence = 0.99;
+  }
+  // -----------------------------------------------------------
+
+  return res.json({ plan, confidence });
 }
