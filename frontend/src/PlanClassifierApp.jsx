@@ -10,7 +10,7 @@ export default function PlanClassifierApp() {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const handleChange = e =>
+  const handleChange = (e) =>
     setInputs({ ...inputs, [e.target.name]: e.target.value });
 
   async function classify() {
@@ -24,7 +24,7 @@ export default function PlanClassifierApp() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(inputs)
       }
-    ).then(r => r.json());
+    ).then((r) => r.json());
 
     setResult(res);
     setLoading(false);
@@ -34,7 +34,7 @@ export default function PlanClassifierApp() {
     <div style={{ maxWidth: 480, margin: "40px auto", fontFamily: "sans-serif" }}>
       <h2>Plan Type Detector</h2>
 
-      {["memberId", "group", "bin", "pcn"].map(field => (
+      {["memberId", "group", "bin", "pcn"].map((field) => (
         <div key={field} style={{ marginBottom: 12 }}>
           <label>
             {field.toUpperCase()}{" "}
